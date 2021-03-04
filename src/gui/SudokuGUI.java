@@ -78,18 +78,12 @@ public class SudokuGUI extends JFrame{
         for (int i : puzzle.getValidValues()){
             JButton b = new JButton(String.valueOf(i));
             b.setPreferredSize(new Dimension(button_dim, button_dim));
-            b.addActionListener(e -> {
-                JButton clicked = (JButton) e.getSource();
-                System.out.println("Clicked " + clicked.getText());
-            });
+            b.addActionListener(sudoku_panel.new SudokuPanelNumInsert());
             numbers_panel.add(b);
         }
         JButton clear_button = new JButton("-");
         clear_button.setPreferredSize(new Dimension(button_dim, button_dim));
-        clear_button.addActionListener(e -> {
-            JButton clicked = (JButton) e.getSource();
-            System.out.println("Clicked: " + clicked.getText());
-        });
+        clear_button.addActionListener(sudoku_panel.new SudokuPanelNumInsert());
         numbers_panel.add(clear_button);
         sudoku_panel.repaint();
         numbers_panel.revalidate();

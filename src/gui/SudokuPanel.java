@@ -6,6 +6,8 @@ import game.SudokuSolver;
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.font.FontRenderContext;
 
@@ -102,6 +104,12 @@ public class SudokuPanel extends JPanel {
         }
     }
 
+    // Insert Number Into Puzzle
+    public void insertNumber(int num){
+        puzzle.setSlotValue(currRow, currCol, num);
+        repaint();
+    }
+
     // Game Menu New Puzzle
     public void newPuzzle(){
         newSudokuPuzzle(SudokuSolver.generateRandomPuzzle());
@@ -120,6 +128,17 @@ public class SudokuPanel extends JPanel {
         repaint();
     }
 
+    public class SudokuPanelNumInsert implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton button = (JButton) e.getSource();
+            int num = button.getText().equals("-") ?
+                    0 : Integer.parseInt(button.getText());
+            insertNumber(num);
+        }
+    }
+
     private class SudokuPanelMouseAdapter extends MouseInputAdapter{
         @Override
         public void mouseClicked(MouseEvent e){
@@ -128,8 +147,6 @@ public class SudokuPanel extends JPanel {
                 int slotHeight = usedHeight/puzzle.getNumRows();
                 currRow = e.getY()/ slotHeight;
                 currCol = e.getX()/ slotWidth;
-                System.out.println("Sel Col: " + currCol);
-                System.out.println("Sel Row: " + currRow + "\n");
                 e.getComponent().repaint();
             }
         }

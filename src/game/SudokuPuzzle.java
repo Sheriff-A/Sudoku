@@ -109,7 +109,11 @@ public class SudokuPuzzle {
     }
 
     public boolean isSlotAvailable(int row,int col) {
-        return (this.board[row][col] == 0 && this.isSlotMutable(row, col));
+        return (this.inRange(row,col) && this.board[row][col] == 0 && this.isSlotMutable(row, col));
+    }
+
+    public boolean inRange(int row,int col) {
+        return row >= 0 && row < ROWS && col >= 0 && col < COLS;
     }
 
     public boolean isSlotMutable(int row,int col) {
@@ -119,11 +123,20 @@ public class SudokuPuzzle {
 
     // Setters
     public void setSlotValue(int row, int col, int num){
-        this.board[row][col] = num;
+        if (inRange(row, col) && isSlotMutable(row, col)){
+            if(isValid(row, col, num)){
+                this.board[row][col] = num;
+            } else if (num == 0) {
+                clearSlot(row, col);
+            }
+        }
     }
 
-
     public void resetSlotValue(int row,int col) {
+        this.board[row][col] = 0;
+    }
+
+    public void clearSlot(int row, int col){
         this.board[row][col] = 0;
     }
 
@@ -139,12 +152,12 @@ public class SudokuPuzzle {
 
     @Override
     public String toString() {
-        String str = "Game Board:\n";
+        StringBuilder str = new StringBuilder("Game Board:\n");
         for(int row=0;row < this.ROWS;row++) {
             for(int col=0;col < this.COLS;col++) {
-                str += this.board[row][col] + "\t";
+                str.append(this.board[row][col]).append("\t");
             }
-            str += "\n";
+            str.append("\n");
         }
         return str+"\n";
     }
