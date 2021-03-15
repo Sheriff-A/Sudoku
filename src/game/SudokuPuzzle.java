@@ -60,14 +60,8 @@ public class SudokuPuzzle {
     public int getBoxHeight(){
         return this.BOXHEIGHT;
     }
-    public int[] getValidValues(){
-        return this.VALIDVALUES;
-    }
-
-    public int[][] getBoard(){
-        return this.board;
-    }
-
+    public int[] getValidValues(){ return this.VALIDVALUES; }
+    public int[][] getBoard(){ return this.board; }
     public boolean[][] getMutable(){
         return this.mutable;
     }
@@ -150,6 +144,15 @@ public class SudokuPuzzle {
         }
     }
 
+    public boolean isSolved(){
+        for (int[] i: board){
+            for (int j: i){
+                if (j == 0) return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder("Game Board:\n");
@@ -164,36 +167,21 @@ public class SudokuPuzzle {
 
     // TO BE REWORKED
     private void initializeBoard(){
-        /*
-
-          Example Board:
-
-          5 3 0 0 7 0 0 0 0
-          6 0 0 1 9 5 0 0 0
-          0 9 8 0 0 0 0 6 0
-          8 0 0 0 6 0 0 0 3
-          4 0 0 8 0 3 0 0 1
-          7 0 0 0 2 0 0 0 6
-          0 6 0 0 0 0 2 8 0
-          0 0 0 4 1 9 0 0 5
-          0 0 0 0 8 0 0 7 9
-
-         */
-
         board = new int[][]{
-                {5, 3, 0, 0, 7, 0, 0, 0, 0}, // Row 1
-                {6, 0, 0, 1, 9, 5, 0, 0, 0}, // Row 2
-                {0, 9, 8, 0, 0, 0, 0, 6, 0}, // Row 3
-                {8, 0, 0, 0, 6, 0, 0, 0, 3}, // Row 4
-                {4, 0, 0, 8, 0, 3, 0, 0, 1}, // Row 5
-                {7, 0, 0, 0, 2, 0, 0, 0, 6}, // Row 6
-                {0, 6, 0, 0, 0, 0, 2, 8, 0}, // Row 7
-                {0, 0, 0, 4, 1, 9, 0, 0, 5}, // Row 8
-                {0, 0, 0, 0, 8, 0, 0, 7, 9}  // Row 9
+                {0,0,0,0,0,0,0,0,0}, // Row 1
+                {0,0,0,0,0,0,0,0,0}, // Row 2
+                {0,0,0,0,0,0,0,0,0}, // Row 3
+                {0,0,0,0,0,0,0,0,0}, // Row 4
+                {0,0,0,0,0,0,0,0,0}, // Row 5
+                {0,0,0,0,0,0,0,0,0}, // Row 6
+                {0,0,0,0,0,0,0,0,0}, // Row 7
+                {0,0,0,0,0,0,0,0,0}, // Row 8
+                {0,0,0,0,0,0,0,0,0}  // Row 9
+
         };
     }
 
-    private void initializeMutable(){
+    public void initializeMutable(){
         for (int r = 0; r < ROWS; r++) {
             for (int c = 0; c < COLS; c++) {
                 mutable[r][c] = board[r][c] == 0;

@@ -15,6 +15,7 @@ public class SudokuPanel extends JPanel {
 
     private SudokuPuzzle puzzle;
     private int currCol, currRow, usedWidth, usedHeight, fontSize;
+    private boolean playing = true;
 
     public SudokuPanel(){
         setPreferredSize(new Dimension(600, 500));
@@ -113,6 +114,7 @@ public class SudokuPanel extends JPanel {
     // Game Menu New Puzzle
     public void newPuzzle(){
         newSudokuPuzzle(SudokuSolver.generateRandomPuzzle());
+        playing = true;
         repaint();
     }
 
@@ -122,13 +124,24 @@ public class SudokuPanel extends JPanel {
         repaint();
     }
 
+    public boolean isSolved(){
+        return puzzle.isSolved();
+    }
+
     // Game Menu Solve Puzzle
     public void solvePuzzle(){
         SudokuSolver.solved(this.puzzle);
+        playing = false;
         repaint();
     }
 
     public class SudokuPanelNumInsert implements ActionListener {
+
+        private final SudokuPanel sudokuPanel;
+
+        public SudokuPanelNumInsert(SudokuPanel sp){
+            sudokuPanel = sp;
+        }
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -136,6 +149,9 @@ public class SudokuPanel extends JPanel {
             int num = button.getText().equals("-") ?
                     0 : Integer.parseInt(button.getText());
             insertNumber(num);
+            if (playing && isSolved()){
+                JOptionPane.showMessageDialog(sudokuPanel, "Congratulations! You Win", "Congratulations", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }
 

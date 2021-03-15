@@ -12,10 +12,38 @@ public abstract class SudokuSolver {
 
     public static SudokuPuzzle generateRandomPuzzle(){
 
-        return new SudokuPuzzle(
+        SudokuPuzzle puzzle = new SudokuPuzzle(
                 9,9,3,3,
                 new int[]{1,2,3,4,5,6,7,8,9}
         );
+        SudokuPuzzle copy = new SudokuPuzzle(puzzle);
+
+        Random rnd = new Random();
+        List<Integer> notUsedValidValues =  new ArrayList<>(9);
+        for (int i: copy.getValidValues()){
+            notUsedValidValues.add(i);
+        }
+        for (int r = 0; r < copy.getNumRows(); r++){
+            int randomValue = rnd.nextInt(notUsedValidValues.size());
+            copy.setSlotValue(r, 0, notUsedValidValues.get(randomValue));
+            notUsedValidValues.remove(randomValue);
+        }
+
+        solved(copy);
+
+        int numOfValuesToKeep = (int)(0.22222 * (copy.getNumRows()* copy.getNumRows()));
+
+        for(int i = 0; i < numOfValuesToKeep;){
+            int randomRow = rnd.nextInt(puzzle.getNumRows());
+            int randomCol = rnd.nextInt(puzzle.getNumColumns());
+
+            if (puzzle.isSlotAvailable(randomRow, randomCol)){
+                puzzle.setSlotValue(randomRow, randomCol, copy.getValue(randomRow, randomCol));
+                i++;
+            }
+        }
+        puzzle.initializeMutable();
+        return puzzle;
     }
 
     public static boolean solved(SudokuPuzzle puzzle) {

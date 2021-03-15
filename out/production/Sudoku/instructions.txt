@@ -1,0 +1,30 @@
+Welcome to Sudoku!
+This is your average everyday 9x9 sudoku game.
+Each puzzle consists of a partially filled grid.
+Aim of the game is simple... fill all the squares.
+However, there's a bit of a twist ('-' )
+
+Instructions:
+Each row must contain numbers 1 - 9.
+Each column must contain numbers 1 - 9.
+Each puzzle consist of 9 'regions'.
+A regions is a 3 x 3 number grid in the puzzle.
+Each region must contain numbers 1 - 9.
+NO NUMBER IN ANY ROW, COLUMN ANY REGION CAN BE REPEATED.
+
+Sounds each enough?
+
+How to Play:
+Click on a grid space, click on a number to place it in that spot.
+Incorrect numbers will not place, i.e. numbers that do not fit.
+Click on a grid space, click on the " - " to erase the number in that spot.
+
+Features:
+If you are unable to solve it, you have three options from the Game menu
+New Game: Loads a new Sudoku Puzzle
+Reset: Resets the Current Game
+Solve: Solves the Current Game
+
+You can open this help page at any time from the File menu.
+ENJOY!
+:D

@@ -6,11 +6,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.Scanner;
+import java.util.concurrent.Flow;
 
 public class SudokuGUI extends JFrame{
 
+    private final String instructions;
+
     JPanel numbers_panel;
-    SudokuPanel sudoku_panel;
+    static SudokuPanel sudoku_panel;
     int width, height;
     int font_size = 26;
     int button_dim = 45;
@@ -19,6 +24,10 @@ public class SudokuGUI extends JFrame{
         // Dimensions
         width = w;
         height = h;
+
+        // Instructions
+        instructions = getInstructions("src/instructions.txt");
+
         // Creating The Frame
         setTitle("Sudoku Game");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,6 +48,24 @@ public class SudokuGUI extends JFrame{
         game_panel.add(numbers_panel);
 //        add(game_panel);
 
+        // Help Dialog Box
+        JDialog help_dialog = new JDialog(this, "Help Dialog Box", true);
+        help_dialog.setLayout(new FlowLayout());
+        help_dialog.setSize(width, height);
+
+        JTextArea instr_text_field = new JTextArea();
+        instr_text_field.setPreferredSize(new Dimension(width-50, height - 100));
+        instr_text_field.setText(instructions);
+        instr_text_field.setEditable(false);
+
+        JButton dialog_close = new JButton("Close");
+        dialog_close.addActionListener(e -> help_dialog.setVisible(false));
+
+        help_dialog.add(instr_text_field);
+        help_dialog.add(dialog_close);
+        help_dialog.setResizable(false);
+//        help_dialog.setVisible(true);
+
         // The Menu Bar
         JMenuBar menu_bar = new JMenuBar();
         JMenu file_menu = new JMenu("File");
@@ -46,15 +73,16 @@ public class SudokuGUI extends JFrame{
         menu_bar.add(file_menu);
         menu_bar.add(game_menu);
         // File Menu Items
-        JMenuItem file_menu_save = new JMenuItem("Save");
+//        JMenuItem file_menu_save = new JMenuItem("Save");
         JMenuItem file_menu_close = new JMenuItem("Close");
         file_menu_close.addActionListener(e -> dispose());
         JMenuItem file_menu_help = new JMenuItem("Help");
-        file_menu.add(file_menu_save);
+        file_menu_help.addActionListener(e -> help_dialog.setVisible(true));
+//        file_menu.add(file_menu_save);
         file_menu.add(file_menu_help);
         file_menu.add(file_menu_close);
         // Game Menu Items
-        JMenuItem game_menu_new = new JMenuItem("New");
+        JMenuItem game_menu_new = new JMenuItem("New Game");
         game_menu_new.addActionListener(new GameMenuListener(sudoku_panel, 0));
         JMenuItem game_menu_reset = new JMenuItem("Reset");
         game_menu_reset.addActionListener(new GameMenuListener(sudoku_panel, 1));
@@ -70,6 +98,24 @@ public class SudokuGUI extends JFrame{
         buildGameInterface(font_size);
     }
 
+    private String getInstructions(String path) {
+        String instr = "---\n";
+        try {
+            File file = new File(path);
+            Scanner scanner = new Scanner(file);
+            while(scanner.hasNextLine()){
+                instr += scanner.nextLine();
+                instr += "\n";
+            }
+            instr = "\n" + instr + "---\n";
+        } catch (Exception e){
+            System.out.println(instr);
+        } finally {
+            System.out.println(instr);
+        }
+        return instr;
+    }
+
     public void buildGameInterface(int fontSize){
         SudokuPuzzle puzzle = SudokuSolver.generateRandomPuzzle();
         sudoku_panel.newSudokuPuzzle(puzzle);
@@ -78,12 +124,12 @@ public class SudokuGUI extends JFrame{
         for (int i : puzzle.getValidValues()){
             JButton b = new JButton(String.valueOf(i));
             b.setPreferredSize(new Dimension(button_dim, button_dim));
-            b.addActionListener(sudoku_panel.new SudokuPanelNumInsert());
+            b.addActionListener(sudoku_panel.new SudokuPanelNumInsert(sudoku_panel));
             numbers_panel.add(b);
         }
         JButton clear_button = new JButton("-");
         clear_button.setPreferredSize(new Dimension(button_dim, button_dim));
-        clear_button.addActionListener(sudoku_panel.new SudokuPanelNumInsert());
+        clear_button.addActionListener(sudoku_panel.new SudokuPanelNumInsert(sudoku_panel));
         numbers_panel.add(clear_button);
         sudoku_panel.repaint();
         numbers_panel.revalidate();
