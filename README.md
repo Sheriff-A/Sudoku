@@ -31,3 +31,4 @@ Solve and solve and solve and solve and... yeah, to your heart's content!
   
 
 - **Timer**: ... no pressure, just wanna see how fast you are (hehehe).
+- **Difficulty**: Different difficulty modes. Easy, Normal, Hard (...and Impossible?)
