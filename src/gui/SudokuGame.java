@@ -63,7 +63,7 @@ public class SudokuGame extends JFrame{
         help_dialog.add(instr_text_field);
         help_dialog.add(dialog_close);
         help_dialog.setResizable(false);
-//        help_dialog.setVisible(true);
+//        help_dialog.setVisible(true); // Uncomment this to load instructions before the game
 
         // The Menu Bar
         JMenuBar menu_bar = new JMenuBar();
