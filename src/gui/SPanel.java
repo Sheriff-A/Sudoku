@@ -1,7 +1,7 @@
 package gui;
 
-import game.SudokuPuzzle;
-import game.SudokuSolver;
+import game.Puzzle;
+import game.Solver;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
@@ -11,16 +11,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.font.FontRenderContext;
 
-public class SudokuPanel extends JPanel {
+public class SPanel extends JPanel {
 
-    private SudokuPuzzle puzzle;
+    private Puzzle puzzle;
     private int currCol, currRow, usedWidth, usedHeight, fontSize;
     private boolean playing = true;
 
-    public SudokuPanel(){
+    public SPanel(){
         setPreferredSize(new Dimension(600, 500));
         addMouseListener(new SudokuPanelMouseAdapter());
-        puzzle = SudokuSolver.generateRandomPuzzle();
+        puzzle = Solver.generateRandomPuzzle();
         currCol = -1;
         currRow = -1;
         usedHeight = 0;
@@ -28,7 +28,7 @@ public class SudokuPanel extends JPanel {
         fontSize = 26;
     }
 
-    public SudokuPanel(SudokuPuzzle puzzle){
+    public SPanel(Puzzle puzzle){
         setPreferredSize(new Dimension(600, 500));
         addMouseListener(new SudokuPanelMouseAdapter());
         this.puzzle = puzzle;
@@ -39,7 +39,7 @@ public class SudokuPanel extends JPanel {
         fontSize = 26;
     }
 
-    public void newSudokuPuzzle(SudokuPuzzle puzzle){
+    public void newSudokuPuzzle(Puzzle puzzle){
         this.puzzle = puzzle;
     }
 
@@ -113,7 +113,7 @@ public class SudokuPanel extends JPanel {
 
     // Game Menu New Puzzle
     public void newPuzzle(){
-        newSudokuPuzzle(SudokuSolver.generateRandomPuzzle());
+        newSudokuPuzzle(Solver.generateRandomPuzzle());
         playing = true;
         repaint();
     }
@@ -130,16 +130,16 @@ public class SudokuPanel extends JPanel {
 
     // Game Menu Solve Puzzle
     public void solvePuzzle(){
-        SudokuSolver.solved(this.puzzle);
+        Solver.solved(this.puzzle);
         playing = false;
         repaint();
     }
 
     public class SudokuPanelNumInsert implements ActionListener {
 
-        private final SudokuPanel sudokuPanel;
+        private final SPanel sudokuPanel;
 
-        public SudokuPanelNumInsert(SudokuPanel sp){
+        public SudokuPanelNumInsert(SPanel sp){
             sudokuPanel = sp;
         }
 

@@ -1,22 +1,21 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 /**
  * This class is responsible for solving a sudoku puzzle
  */
-public abstract class SudokuSolver {
+public abstract class Solver {
 
-    public static SudokuPuzzle generateRandomPuzzle(){
+    public static Puzzle generateRandomPuzzle(){
 
-        SudokuPuzzle puzzle = new SudokuPuzzle(
+        Puzzle puzzle = new Puzzle(
                 9,9,3,3,
                 new int[]{1,2,3,4,5,6,7,8,9}
         );
-        SudokuPuzzle copy = new SudokuPuzzle(puzzle);
+        Puzzle copy = new Puzzle(puzzle);
 
         Random rnd = new Random();
         List<Integer> notUsedValidValues =  new ArrayList<>(9);
@@ -46,7 +45,7 @@ public abstract class SudokuSolver {
         return puzzle;
     }
 
-    public static boolean solved(SudokuPuzzle puzzle) {
+    public static boolean solved(Puzzle puzzle) {
         for (int row = 0; row < 9; row++) {
             for (int col = 0; col < 9; col++) {
                 if (puzzle.getValue(row, col) == 0) {

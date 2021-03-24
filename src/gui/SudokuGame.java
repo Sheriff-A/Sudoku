@@ -1,6 +1,6 @@
 package gui;
-import game.SudokuPuzzle;
-import game.SudokuSolver;
+import game.Puzzle;
+import game.Solver;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,19 +8,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Scanner;
-import java.util.concurrent.Flow;
 
-public class SudokuGUI extends JFrame{
+public class SudokuGame extends JFrame{
 
     private final String instructions;
 
     JPanel numbers_panel;
-    static SudokuPanel sudoku_panel;
+    static SPanel sudoku_panel;
     int width, height;
     int font_size = 26;
     int button_dim = 45;
 
-    public SudokuGUI(int w, int h){
+    public SudokuGame(int w, int h){
         // Dimensions
         width = w;
         height = h;
@@ -42,7 +41,7 @@ public class SudokuGUI extends JFrame{
         numbers_panel = new JPanel();
         numbers_panel.setPreferredSize(new Dimension(100, 500));
         // Sudoku Panel
-        sudoku_panel = new SudokuPanel();
+        sudoku_panel = new SPanel();
 
         game_panel.add(sudoku_panel);
         game_panel.add(numbers_panel);
@@ -117,7 +116,7 @@ public class SudokuGUI extends JFrame{
     }
 
     public void buildGameInterface(int fontSize){
-        SudokuPuzzle puzzle = SudokuSolver.generateRandomPuzzle();
+        Puzzle puzzle = Solver.generateRandomPuzzle();
         sudoku_panel.newSudokuPuzzle(puzzle);
         sudoku_panel.setFontSize(fontSize);
         numbers_panel.removeAll();
@@ -139,10 +138,10 @@ public class SudokuGUI extends JFrame{
 
     private static class GameMenuListener implements ActionListener {
 
-        SudokuPanel sudoku_panel;
+        SPanel sudoku_panel;
         int command;
 
-        GameMenuListener(SudokuPanel sudoku_panel, int command){
+        GameMenuListener(SPanel sudoku_panel, int command){
             this.sudoku_panel = sudoku_panel;
             this.command = command;
         }
@@ -161,7 +160,7 @@ public class SudokuGUI extends JFrame{
     public static void main(String[] args){
         System.out.println("LAUNCHING SUDOKU...");
         SwingUtilities.invokeLater(() -> {
-            SudokuGUI game = new SudokuGUI(800, 600);
+            SudokuGame game = new SudokuGame(800, 600);
             game.setVisible(true);
             game.setResizable(false);
         });

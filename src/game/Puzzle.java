@@ -4,7 +4,7 @@ package game;
  * This class holds any and all information about a sudoku puzzle
  */
 
-public class SudokuPuzzle {
+public class Puzzle {
 
     protected int[][] board;
     protected boolean[][] mutable;
@@ -14,7 +14,7 @@ public class SudokuPuzzle {
     private final int BOXHEIGHT;
     private final int[] VALIDVALUES;
 
-    public SudokuPuzzle(int rows, int cols, int box_width, int box_height, int[] valid_inputs){
+    public Puzzle(int rows, int cols, int box_width, int box_height, int[] valid_inputs){
         this.ROWS = rows;
         this.COLS = cols;
         this.BOXHEIGHT = box_height;
@@ -26,7 +26,7 @@ public class SudokuPuzzle {
         initializeMutable();
     }
 
-    public SudokuPuzzle(SudokuPuzzle puzzle){
+    public Puzzle(Puzzle puzzle){
         this.ROWS = puzzle.ROWS;
         this.COLS = puzzle.COLS;
         this.BOXHEIGHT = puzzle.BOXHEIGHT;
