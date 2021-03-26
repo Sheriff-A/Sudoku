@@ -22,13 +22,3 @@ Should you choose the route of the forgoing, your score will not be tracked
 The puzzles are auto generated from scratch via the program. So take to the challenge.
 Solve and solve and solve and solve and... yeah, to your heart's content!
 :D
-
-### Upcoming features:
-- **Score Tracker**: The ability to record, save, load and increment your wins and losses across multiple game sessions.  
-
-
-- **Save and Load**: The ability to locally save your sudoku game and load it to continue. This ought to help with those really tough ones. The real brain busters.
-  
-
-- **Timer**: ... no pressure, just wanna see how fast you are (hehehe).
-- **Difficulty**: Different difficulty modes. Easy, Normal, Hard (...and Impossible?)
